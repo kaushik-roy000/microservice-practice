@@ -10,7 +10,7 @@ eureka:
       defaultZone : http://localhost:8088/eureka
   instance:
     prefer-ip-address: true
-#relaince4j,circuit breaker dependency configuration
+#relaince4j,circuit breaker ,retry and rate limiter configuration
 management:
   endpoints:
     web:
@@ -36,3 +36,16 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10
         sliding-window-type: COUNT-BASED
+  retry:
+    instances:
+      ratinghotelservice:
+        wait-duration: 3s
+        max-attempts: 3
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 3s
+        limit-for-period: 2
+        timeout-duration: 0s
+
+
